@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
+// @Service
 public class PersistenciaMongo implements LobbiesInterface{
 
     @Autowired
