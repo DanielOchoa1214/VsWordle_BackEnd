@@ -1,8 +1,10 @@
 package edu.eci.arsw.wordle.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 80085L;
     private String nickname;
     private int roundsWon = 0;
     private int wrongLetters;
@@ -40,7 +42,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Nickname: " + nickname + " Puntos: " + roundsWon;
+        return "{Nickname: " + nickname + " Puntos: " + roundsWon + "}";
     }
 
     @Override

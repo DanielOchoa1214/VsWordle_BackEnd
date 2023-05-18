@@ -54,7 +54,7 @@ public class LobbyAPIController {
 
     @PutMapping(value = "/{idLobby}/startGame")
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<?> startGame(@PathVariable("idLobby") String idLobby) {
+    public synchronized ResponseEntity<?> startGame(@PathVariable("idLobby") String idLobby) {
         try {
             Lobby lobby = lobbyServices.getLobby(idLobby);
             Boolean success = lobbyServices.startGame(lobby);
@@ -66,7 +66,7 @@ public class LobbyAPIController {
 
     @GetMapping(value = "/{idLobby}/winner")
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<?> getLobbyWinner(@PathVariable("idLobby") String idLobby) {
+    public synchronized ResponseEntity<?> getLobbyWinner(@PathVariable("idLobby") String idLobby) {
         try{
             Lobby lobby = lobbyServices.getLobby(idLobby);
             List<Player> sortPlayers = lobbyServices.getLobbyWinner(lobby);

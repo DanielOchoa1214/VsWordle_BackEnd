@@ -1,14 +1,18 @@
 package edu.eci.arsw.wordle.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Palabra {
+public class Palabra implements Serializable {
+    private static final long serialVersionUID = 80085L;
     private String text;
     private boolean taken = false;
 
     public Palabra(String text) {
         this.text = text;
     }
+
+    public Palabra(){}
 
     public String getText() {
         return text;

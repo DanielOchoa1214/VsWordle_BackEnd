@@ -1,18 +1,15 @@
 package edu.eci.arsw.wordle.model;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Document(collection = "Lobbies")
-public class Lobby {
+public class Lobby implements Serializable {
+    private static final long serialVersionUID = 80085L;
     private static final String ARCHIVO_PALABRAS = "wordlist_spanish_fil.txt";
     private final int MAX_ROUNDS = 10;
     private static List<Palabra> wordList = null;
@@ -20,7 +17,7 @@ public class Lobby {
     private final AtomicBoolean isFinished = new AtomicBoolean(false);
     private List<Player> playerList;
     private List<Palabra> palabraList;
-    @Id
+    // @Id
     private String id;
     private Player host = null;
 
@@ -164,7 +161,7 @@ public class Lobby {
     }
 
     public String toString() {
-        return "id = " + id + ", palabras: " + palabraList;
+        return "id = " + id + ", palabras: " + palabraList + ", host: " + host;
     }
 
     public String getId() {

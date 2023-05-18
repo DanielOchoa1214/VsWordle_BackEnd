@@ -49,13 +49,13 @@ public class WebSocketHandler extends StompSessionHandlerAdapter {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void handleWrongLetterEvent(Player player, @DestinationVariable String idLobby) throws Exception {
         Lobby lobby = lobbyServices.getLobby(idLobby);
-        playerServices.addWrongLetter(lobby, player);
+        playerServices.addWrongLetter(player, lobby);
     }
 
     @MessageMapping("/correctLetter.{idLobby}")
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void handleCorrectLetterEvent(Player player, @DestinationVariable String idLobby) throws Exception {
         Lobby lobby = lobbyServices.getLobby(idLobby);
-        playerServices.addCorrectLetter(lobby, player);
+        playerServices.addCorrectLetter(player, lobby);
     }
 }

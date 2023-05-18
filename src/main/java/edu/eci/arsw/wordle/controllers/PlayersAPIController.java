@@ -49,7 +49,7 @@ public class PlayersAPIController {
 
     @PostMapping
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<?> addPlayer(@RequestBody Player player, @PathVariable("idLobby") String idLobby) {
+    public synchronized ResponseEntity<?> addPlayer(@RequestBody Player player, @PathVariable("idLobby") String idLobby) {
         try{
             Lobby lobby = lobbyServices.getLobby(idLobby);
             boolean success = playerServices.addPlayer(player, lobby);
@@ -72,10 +72,32 @@ public class PlayersAPIController {
 
     @DeleteMapping
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<?> removePlayer(@RequestBody Player player, @PathVariable("idLobby") String idLobby){
+    public synchronized ResponseEntity<?> removePlayer(@RequestBody Player player, @PathVariable("idLobby") String idLobby){
         try{
             Lobby lobby = lobbyServices.getLobby(idLobby);
             playerServices.removePlayer(player, lobby);
+            return new ResponseEntity<>(true, HttpStatus.FOUND);
+        } catch (PlayerException | LobbyException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/addCorrect")
+    public synchronized ResponseEntity<?> addCorrectLetter(@RequestBody Player player, @PathVariable("idLobby") String idLobby){
+        try{
+            Lobby lobby = lobbyServices.getLobby(idLobby);
+            playerServices.addCorrectLetter(player, lobby);
+            return new ResponseEntity<>(true, HttpStatus.FOUND);
+        } catch (PlayerException | LobbyException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/addWrong")
+    public synchronized ResponseEntity<?> addWrongLetter(@RequestBody Player player, @PathVariable("idLobby") String idLobby){
+        try{
+            Lobby lobby = lobbyServices.getLobby(idLobby);
+            playerServices.addWrongLetter(player, lobby);
             return new ResponseEntity<>(true, HttpStatus.FOUND);
         } catch (PlayerException | LobbyException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

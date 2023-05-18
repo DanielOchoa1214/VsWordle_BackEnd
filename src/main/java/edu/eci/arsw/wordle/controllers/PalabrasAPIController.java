@@ -25,7 +25,7 @@ public class PalabrasAPIController {
 
     @RequestMapping()
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<?> proveWord(@RequestParam("palabra") String palabra, @RequestParam("round")  int round, @RequestParam("nickname") String nickname, @PathVariable("idLobby") String idLobby) {
+    public synchronized ResponseEntity<?> proveWord(@RequestParam("palabra") String palabra, @RequestParam("round")  int round, @RequestParam("nickname") String nickname, @PathVariable("idLobby") String idLobby) {
         try {
             Lobby lobby = lobbyServices.getLobby(idLobby);
             boolean data = palabraServices.proveWord(palabra, round, nickname, lobby);
