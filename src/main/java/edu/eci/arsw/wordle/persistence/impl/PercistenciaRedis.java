@@ -1,11 +1,10 @@
 package edu.eci.arsw.wordle.persistence.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.eci.arsw.wordle.model.Lobby;
 import edu.eci.arsw.wordle.model.Player;
 import edu.eci.arsw.wordle.persistence.LobbiesInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PercistenciaRedis implements LobbiesInterface{
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate<String, Lobby> redisTemplate;
 
     @Override
     public Lobby getLobby(String idLobby) {
-        return fromString(redisTemplate.opsForValue().get(idLobby));
+        return redisTemplate.opsForValue().get(idLobby);
     }
 
     @Override
@@ -37,11 +36,11 @@ public class PercistenciaRedis implements LobbiesInterface{
 
     @Override
     public String addLobby(Player player) {
-        ValueOperations<String, String> valueOp = redisTemplate.opsForValue();
+        ValueOperations<String, Lobby> valueOp = redisTemplate.opsForValue();
         Lobby lobby = new Lobby();
         lobby.setHost(player);
         lobby.addPlayer(player);
-        valueOp.set(lobby.getId(), toString(lobby));
+        valueOp.set(lobby.getId(), lobby);
         return lobby.getId();
     }
 
@@ -49,7 +48,7 @@ public class PercistenciaRedis implements LobbiesInterface{
     public void resetLobby(String idLobby) {
         Lobby blanckLobby = new Lobby();
         blanckLobby.setId(idLobby);
-        redisTemplate.opsForValue().set(blanckLobby.getId(), toString(blanckLobby));
+        redisTemplate.opsForValue().set(blanckLobby.getId(), blanckLobby);
     }
 
     @Override
@@ -59,32 +58,6 @@ public class PercistenciaRedis implements LobbiesInterface{
 
     @Override
     public void updateLobby(Lobby newLobby) {
-        redisTemplate.opsForValue().set(newLobby.getId(), toString(newLobby));
-    }
-
-    private static Lobby fromString( String s ){
-        try {
-            byte [] data = Base64.getDecoder().decode( s );
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(  data ) );
-            Lobby o  = (Lobby) ois.readObject();
-            ois.close();
-            return o;
-        } catch (IOException | ClassNotFoundException e){
-            return null;
-        }
-
-    }
-
-    /** Write the object to a Base64 string. */
-    private static String toString( Serializable o ) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream( baos );
-            oos.writeObject( o );
-            oos.close();
-            return Base64.getEncoder().encodeToString(baos.toByteArray());
-        } catch (IOException e){
-            return null;
-        }
+        redisTemplate.opsForValue().set(newLobby.getId(), newLobby);
     }
 }
