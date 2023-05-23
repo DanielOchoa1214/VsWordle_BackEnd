@@ -22,7 +22,6 @@ public class PlayerServices {
         if(lobby.getIsClosed().get()) throw new LobbyException(LobbyException.IS_CLOSED);
         if(player.getNickname().equals("")) throw new LobbyException(LobbyException.EMPTY_NICK);
         boolean success = lobby.addPlayer(player);
-
         lobbies.updateLobby(lobby);
         return success;
     }
