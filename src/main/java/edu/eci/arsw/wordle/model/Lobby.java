@@ -27,11 +27,15 @@ public class Lobby implements Serializable {
     public Lobby() {
         try {
             setWordList();
-        }catch (Exception ignored) {
-        }
+        }catch (Exception ignored) {}
         this.id = generateIdLobby();
         this.playerList = new ArrayList<>();
         this.palabraList = lobbyWords(MAX_ROUNDS);
+    }
+
+    public Lobby(String id){
+        this();
+        this.id = id;
     }
 
     private static LobbyException setWordList() throws LobbyException {
@@ -147,10 +151,7 @@ public class Lobby implements Serializable {
     }
 
     public boolean startGame() {
-        if (!isClosed.get()) {
-            isClosed.set(true);
-            return isClosed.get();
-        }
+        isClosed.set(true);
         return isClosed.get();
     }
 
@@ -207,5 +208,13 @@ public class Lobby implements Serializable {
 
     public void setId(String newId){
         this.id = newId;
+    }
+
+    public boolean equals(Object o){
+        return this.equals((Lobby) o);
+    }
+
+    private boolean equals(Lobby lobby){
+        return this.id.equals(lobby.id);
     }
 }

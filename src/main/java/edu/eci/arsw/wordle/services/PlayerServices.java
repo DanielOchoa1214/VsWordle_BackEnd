@@ -21,7 +21,6 @@ public class PlayerServices {
         if(lobby.nicknameExists(player)) throw new LobbyException(LobbyException.PLAYER_EXISTS);
         if(lobby.getIsClosed().get()) throw new LobbyException(LobbyException.IS_CLOSED);
         if(player.getNickname().equals("")) throw new LobbyException(LobbyException.EMPTY_NICK);
-        System.out.println(lobby);
         boolean success = lobby.addPlayer(player);
 
         lobbies.updateLobby(lobby);

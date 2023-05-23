@@ -1,4 +1,4 @@
-package edu.eci.arsw.wordle.services;
+package edu.eci.arsw.wordle;
 
 
 import edu.eci.arsw.wordle.model.Palabra;

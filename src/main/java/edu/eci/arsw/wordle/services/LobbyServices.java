@@ -32,14 +32,13 @@ public class LobbyServices {
         return lobbies.getLobbies();
     }
     public boolean startGame(Lobby lobby) throws LobbyException {
-        if (!lobby.startGame()) throw new LobbyException(LobbyException.IS_CLOSED);
+        if (lobby.getIsClosed().get()) throw new LobbyException(LobbyException.IS_CLOSED);
         boolean started = lobby.startGame();
         lobbies.updateLobby(lobby);
         return started;
     }
 
     public List<Player> getLobbyWinner(Lobby lobby) throws LobbyException {
-        if(lobby.getIsFinished().get()) throw new LobbyException(LobbyException.IS_NOT_FINISHED);
         List<Player> sortPlayers = lobby.statistics();
         lobbies.resetLobby(lobby.getId());
         deleteLobby(lobby);
