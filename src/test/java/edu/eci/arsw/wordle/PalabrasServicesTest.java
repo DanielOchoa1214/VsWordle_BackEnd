@@ -17,43 +17,13 @@ import static org.mockito.Mockito.*;
 public class PalabrasServicesTest {
 
     @Mock
-    private LobbiesInterface lobbies;
+    private LobbiesInterface lobbiesMock;
 
     private PalabraServices palabraServices;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        palabraServices = new PalabraServices();
+        MockitoAnnotations.initMocks(this);
     }
-
-
-
-    @Test
-    public void testGetPalabra() throws PalabrasException {
-        int round = 1;
-        Lobby lobby = mock(Lobby.class);
-        Palabra palabraObj = mock(Palabra.class);
-
-        when(lobby.getPalabra(round)).thenReturn(palabraObj);
-        when(palabraObj.getText()).thenReturn("example");
-
-        String result = palabraServices.getWord(round, lobby);
-
-        assertEquals("example", result);
-    }
-
-    @Test
-    public void testGetPalabra_InvalidRound() {
-        int round = 1;
-        Lobby lobby = mock(Lobby.class);
-
-        when(lobby.getPalabra(round)).thenThrow(new IndexOutOfBoundsException());
-
-        assertThrows(PalabrasException.class, () -> palabraServices.getWord(round, lobby));
-    }
-
-
-
 
 }

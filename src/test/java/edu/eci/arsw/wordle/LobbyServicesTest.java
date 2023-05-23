@@ -150,9 +150,13 @@ public class LobbyServicesTest {
     @Test
     public void whenGettingHostThenReturnsHost(){
         // ARRANGE
+        Player host = new Player("Putito");
         Lobby lobby = new Lobby();
+        lobby.setHost(host);
         // ACT
+        Player serviceHost = lobbyServices.getHost(lobby);
         // ASSERT
+        assertEquals(host, serviceHost);
     }
 }
 
