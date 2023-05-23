@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "arsw-vswordle.eastus.cloudapp.azure.com")
 @RequestMapping(value = "/lobbies/{idLobby}/players")
 public class PlayersAPIController {
 

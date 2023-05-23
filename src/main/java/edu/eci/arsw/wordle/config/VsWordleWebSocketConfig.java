@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "arsw-vswordle.eastus.cloudapp.azure.com")
 @EnableWebSocketMessageBroker
 public class VsWordleWebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
     @Override

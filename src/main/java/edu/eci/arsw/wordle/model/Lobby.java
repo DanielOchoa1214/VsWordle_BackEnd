@@ -24,14 +24,14 @@ public class Lobby implements Serializable {
     private Player host = null;
     private static SecureRandom random = new SecureRandom();
 
-    public Lobby() {
+    public Lobby() throws LobbyException {
         setWordList();
         this.id = generateIdLobby();
         this.playerList = new ArrayList<>();
         this.palabraList = lobbyWords(MAX_ROUNDS);
     }
 
-    private static LobbyException setWordList() {
+    private static LobbyException setWordList() throws LobbyException {
         if(wordList == null) {
             wordList = new ArrayList<>();
             BufferedReader br = null;
@@ -45,19 +45,18 @@ public class Lobby implements Serializable {
                 }
                 br.close();
             } catch (IOException e ) {
-                return new LobbyException(LobbyException.DEFAULT);
+                throw new LobbyException(LobbyException.DEFAULT);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
-                    } catch (IOException e) {
-                        return new LobbyException(LobbyException.DEFAULT);
+                    } catch (IOException ignored) {
                     }
                 }
             }
             Collections.shuffle(wordList, random);
         }
-        return new LobbyException(LobbyException.DEFAULT);
+        throw new LobbyException(LobbyException.DEFAULT);
     }
 
     private List<Palabra> lobbyWords(int rounds) {

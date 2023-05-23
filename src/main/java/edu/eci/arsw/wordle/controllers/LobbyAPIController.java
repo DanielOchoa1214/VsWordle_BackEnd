@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "arsw-vswordle.eastus.cloudapp.azure.com")
 @RequestMapping(value = "/lobbies")
 public class LobbyAPIController {
 
