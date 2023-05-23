@@ -221,4 +221,9 @@ public class Lobby implements Serializable {
     private boolean equals(Lobby lobby){
         return this.id.equals(lobby.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
