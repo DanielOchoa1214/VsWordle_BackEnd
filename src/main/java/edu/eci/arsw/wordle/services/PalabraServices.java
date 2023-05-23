@@ -15,7 +15,7 @@ public class PalabraServices {
     @Autowired
     private LobbiesInterface lobbies;
 
-    public boolean proveWord(String palabra, int round, String nickname, Lobby lobby) throws PalabrasException {
+    public boolean proveWord(String palabra, int round, String nickname, Lobby lobby) {
         Palabra wordInt = new Palabra(palabra);
         Palabra word = lobby.getPalabra(round);
         synchronized (word) {
@@ -27,7 +27,6 @@ public class PalabraServices {
             }
         }
         return false;
-        //retornar la siguiente palabra
     }
 
     public String getWord(int round, Lobby lobby) throws PalabrasException {

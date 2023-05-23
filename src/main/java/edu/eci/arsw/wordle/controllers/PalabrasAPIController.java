@@ -30,7 +30,7 @@ public class PalabrasAPIController {
             Lobby lobby = lobbyServices.getLobby(idLobby);
             boolean data = palabraServices.proveWord(palabra, round, nickname, lobby);
             return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
-        } catch (PalabrasException | LobbyException e){
+        } catch (LobbyException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
