@@ -9,6 +9,7 @@ public class LobbyException extends Exception{
     public static String LOBBY_NOT_FOUND = "El lobby no se encontro";
     public static String EMPTY_NICK = "Tu nickname no puede estar vacio :(";
     public static String NOT_HOST = "No se proporciono un host para el lobby";
+    public static String DEFAULT = "Ohhh no, un error a ocurrido";
 
     public LobbyException(String message) {
         super(message);

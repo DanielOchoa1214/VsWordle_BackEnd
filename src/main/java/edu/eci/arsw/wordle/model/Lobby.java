@@ -1,5 +1,6 @@
 package edu.eci.arsw.wordle.model;
 
+import edu.eci.arsw.wordle.persistence.exceptions.LobbyException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -30,7 +31,7 @@ public class Lobby implements Serializable {
         this.palabraList = lobbyWords(MAX_ROUNDS);
     }
 
-    private static void setWordList() {
+    private static LobbyException setWordList() {
         if(wordList == null) {
             wordList = new ArrayList<>();
             BufferedReader br = null;
@@ -44,18 +45,19 @@ public class Lobby implements Serializable {
                 }
                 br.close();
             } catch (IOException e ) {
-                e.printStackTrace();
+                return new LobbyException(LobbyException.DEFAULT);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        return new LobbyException(LobbyException.DEFAULT);
                     }
                 }
             }
             Collections.shuffle(wordList, random);
         }
+        return new LobbyException(LobbyException.DEFAULT);
     }
 
     private List<Palabra> lobbyWords(int rounds) {

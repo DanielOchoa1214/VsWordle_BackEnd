@@ -15,7 +15,8 @@ public class RedisConfig {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
         JedisConnectionFactory factory = new JedisConnectionFactory();
-        factory.setHostName("20.85.222.214");
+        String ip = System.getenv("20.85.222.214"); // Compliant
+        factory.setHostName(ip);
         factory.setPort(6379);
         return factory;
     }

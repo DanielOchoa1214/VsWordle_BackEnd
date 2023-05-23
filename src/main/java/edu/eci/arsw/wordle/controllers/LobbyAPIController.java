@@ -38,7 +38,6 @@ public class LobbyAPIController {
             String idLobby = lobbyServices.newLobby(player);
             return new ResponseEntity<>(idLobby, HttpStatus.CREATED);
         } catch (Exception e){
-            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
