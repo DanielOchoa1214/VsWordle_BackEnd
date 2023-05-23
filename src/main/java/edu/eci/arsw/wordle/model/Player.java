@@ -47,7 +47,16 @@ public class Player implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
         return this.equals((Player) obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nickname);
     }
 
     private boolean equals(Player player){

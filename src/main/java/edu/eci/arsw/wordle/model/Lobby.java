@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.*;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -20,6 +21,7 @@ public class Lobby implements Serializable {
     // @Id
     private String id;
     private Player host = null;
+    private static SecureRandom random = new SecureRandom();
 
     public Lobby() {
         setWordList();
@@ -52,15 +54,14 @@ public class Lobby implements Serializable {
                     }
                 }
             }
-            Collections.shuffle(wordList, new Random(10000));
+            Collections.shuffle(wordList, random);
         }
     }
 
     private List<Palabra> lobbyWords(int rounds) {
         List<Palabra> lobbyWords = new ArrayList<>();
-        Random r = new Random();
         for(int i = 0; i<rounds; i++) {
-            int wordIndex = r.nextInt(wordList.size());
+            int wordIndex = random.nextInt(wordList.size());
             lobbyWords.add(wordList.get(wordIndex));
         }
         return lobbyWords;

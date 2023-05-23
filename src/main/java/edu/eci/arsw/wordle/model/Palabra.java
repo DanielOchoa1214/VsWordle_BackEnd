@@ -32,9 +32,16 @@ public class Palabra implements Serializable {
     }
 
     private boolean equals(Palabra obj){
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
         return this.text.equals(obj.getText());
     }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(text);
+    }
     @Override
     public String toString() {
         return this.text;

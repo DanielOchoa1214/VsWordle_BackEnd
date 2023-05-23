@@ -66,6 +66,7 @@ public class LobbyServices {
                 runnable.run();
             } catch (Exception e){
                 System.err.println(e);
+                Thread.currentThread().interrupt();
             }
         }).start();
     }

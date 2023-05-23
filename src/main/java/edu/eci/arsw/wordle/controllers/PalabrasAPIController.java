@@ -23,7 +23,7 @@ public class PalabrasAPIController {
     @Autowired
     LobbyServices lobbyServices = null;
 
-    @RequestMapping()
+    @GetMapping()
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public synchronized ResponseEntity<?> proveWord(@RequestParam("palabra") String palabra, @RequestParam("round")  int round, @RequestParam("nickname") String nickname, @PathVariable("idLobby") String idLobby) {
         try {
