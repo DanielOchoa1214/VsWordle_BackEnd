@@ -24,8 +24,11 @@ public class Lobby implements Serializable {
     private Player host = null;
     private static SecureRandom random = new SecureRandom();
 
-    public Lobby() throws LobbyException {
-        setWordList();
+    public Lobby() {
+        try {
+            setWordList();
+        }catch (Exception ignored) {
+        }
         this.id = generateIdLobby();
         this.playerList = new ArrayList<>();
         this.palabraList = lobbyWords(MAX_ROUNDS);
